@@ -41,7 +41,7 @@ public class AdminController {
 	@PostMapping("/add")
 	public String addUser(@ModelAttribute("user") @Valid User user,
 	                      BindingResult bindingResult,
-	                      @RequestParam(value = "roles", required = false) List<Long> roleIds,
+	                      @RequestParam(value = "roleIds", required = false) List<Long> roleIds,
 	                      Model model) {
 
 		if (bindingResult.hasErrors()) {
@@ -77,11 +77,6 @@ public class AdminController {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("allRoles", roleService.getAllRoles());
-
-			if (roleIds != null && !roleIds.isEmpty()) {
-				List<Role> selectedRoles = roleService.getRolesByIds(roleIds);
-				user.setRoles(new HashSet<>(selectedRoles));
-			}
 
 			return "user-form";
 		}
