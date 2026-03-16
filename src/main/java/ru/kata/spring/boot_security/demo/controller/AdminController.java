@@ -7,13 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.validation.Valid;
-import java.util.HashSet;
 import java.util.List;
 
 @Slf4j
@@ -46,11 +44,6 @@ public class AdminController {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("allRoles", roleService.getAllRoles());
-
-			if (roleIds != null && !roleIds.isEmpty()) {
-				List<Role> selectedRoles = roleService.getRolesByIds(roleIds);
-				user.setRoles(new HashSet<>(selectedRoles));
-			}
 
 			return "user-form";
 		}
